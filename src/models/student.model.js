@@ -1,0 +1,91 @@
+import mongoose,{Schema} from 'mongoose';
+
+const studentSchema = new Schema(
+    {
+        fullname:{
+            type:String,
+            required:true,
+        },
+        password:{
+            type:String,
+            required:true,
+        },
+        mobile:{
+            type:Number,
+            required:true,
+            unique:true
+        },
+        rollno:{
+            type:String,
+            required:true,
+            unique:true,
+            lowercase:true,
+            trim:true,
+            index:true
+        },
+        dob:{
+            type:String,
+            required:true
+        },
+        fathername:{
+            type:String,
+            required:true,
+        },
+        mothername:{
+            type:String,
+            required:true,
+        },
+        fathernumber:{
+            type:String,
+            required:true,
+        },
+        mothernumber:{
+            type:String,
+            required:true,
+        },
+        curryear:{
+            type:String,//-1 if not studying
+            required:true,
+            trim:true
+        },
+        currsem:{
+            type:String,//-1 if not studying
+            required:true,
+            trim:true
+        },
+        noofbacklogs:{
+            type:String,
+            required:true,
+            trim:true
+        },
+        cgpa:{
+            type:String,//-1 if NA
+            required:true,
+            trim:true
+        },
+        isverified:{
+            type:Boolean,
+            default:false
+        },
+        ismentor:{
+            type:Boolean,
+            default:false
+        },
+        isadmin:{
+            type:Boolean,
+            default:false
+        },
+        mentorid:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Mentor"
+        },
+        refreshtoken:{
+            type:String
+        },
+    },
+    {
+        timestamps:true
+    }
+)
+
+export const Student = mongoose.model("Student", studentSchema);
