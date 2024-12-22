@@ -58,6 +58,14 @@ const studentSchema = new Schema(
             required:true,
             trim:true
         },
+        attendance:{
+            type:String,
+            trim:true
+        },
+        fines:{
+            type:String,
+            trim:true
+        },
         cgpa:{
             type:String,//-1 if NA
             required:true,

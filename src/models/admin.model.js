@@ -29,7 +29,7 @@ const adminSchema = new Schema(
         },
         ismentor:{
             type:Boolean,
-            default:false
+            default:false   
         },
         refreshtoken:{
             type:String

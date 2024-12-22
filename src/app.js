@@ -23,11 +23,17 @@ app.use(cors({
 
 //import routes
 import userAuthRoute from "./routes/userAuth.route.js";
-
-
+import studentRoute from "./routes/student.route.js";
+import mailRoute from "./routes/mail.route.js";
+import adminroute from "./routes/admin.route.js";
+import mentorroute from "./routes/mentor.route.js";
 
 //use routes
 app.use("/api/v1/auth",userAuthRoute);
+app.use("/api/v1/mail",mailRoute);
+app.use("/api/v1/admin",adminroute)
+app.use("/api/v1/mentor",mentorroute)
+app.use("/api/v1/student",studentRoute);
 
 
 
