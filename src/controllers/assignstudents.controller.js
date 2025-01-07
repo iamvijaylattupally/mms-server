@@ -2,7 +2,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 import AsyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import { Mentor } from "../models/mentor.model.js";
-import { Student } from "../models/student.model.js"
+import { Student } from "../models/student.model.js";
 
 const assignStudents = AsyncHandler(async (req, res) => {
     const { mentorroll, students } = req.body;
@@ -22,12 +22,15 @@ const assignStudents = AsyncHandler(async (req, res) => {
         throw new ApiError(404, "Mentor not found.");
     }
 
-    // Find students by roll number
-    const matchedStudents = await Student.find({ rollno: { $in: normalizedStudents } });
+    // Find students by roll number and isverified is false
+    const matchedStudents = await Student.find({
+        rollno: { $in: normalizedStudents },
+        isverified: false,
+    });
     console.log("Matched students:", matchedStudents);
 
     if (matchedStudents.length === 0) {
-        throw new ApiError(404, "No matching students found.");
+        throw new ApiError(404, "No matching unverified students found.");
     }
 
     // Extract student IDs
@@ -35,7 +38,7 @@ const assignStudents = AsyncHandler(async (req, res) => {
 
     // Update students' mentor ID and verification status
     const updateResult = await Student.updateMany(
-        { rollno: { $in: normalizedStudents } },
+        { rollno: { $in: normalizedStudents }, isverified: false },
         { $set: { isverified: true, mentorid: mentor._id } }
     );
     console.log("Update result:", updateResult);
@@ -56,4 +59,4 @@ const assignStudents = AsyncHandler(async (req, res) => {
 
 export {
     assignStudents,
-}
+};
