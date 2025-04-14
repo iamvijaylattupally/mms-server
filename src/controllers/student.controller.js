@@ -5,7 +5,14 @@ import { Student } from "../models/student.model.js";
 
 
 const getAllStudents = AsyncHandler(async (req, res) => {
-    const students = await Student.find().select("fullname rollno mobile dob fathername fathernumber mothername mothernumber curryear currsem noofbacklogs cgpa isverified ismentor isadmin");
+    console.log("Fetching all students...");
+    const {mentorid} = req.body; 
+    // Check if mentorid is provided
+    if (!mentorid) {
+        throw new ApiError(400, "Mentor ID is required");
+    }
+    // Find students assigned to the mentor
+    const students = await Student.find({ mentorid }).select("fullname rollno mobile dob fathername fathernumber mothername mothernumber curryear currsem noofbacklogs cgpa isverified ismentor isadmin");
 
     if (!students) {
         throw new ApiError(404, "No students found");

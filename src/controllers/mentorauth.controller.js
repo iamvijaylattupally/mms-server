@@ -61,8 +61,9 @@ const loginMentor = AsyncHandler(async (req, res) => {
     });
 })
 
-
-
+const createAssignment = AsyncHandler(async (req, res) => {
+    const {subject, submissiondate, mentorid, targets} = req.body;
+});
 
 
 export {
